@@ -13,7 +13,8 @@ const app = express()
 app.use(cors())
 app.use(express.json({ limit: '50mb' }))
 
-const latexCmd = process.env.LATEX_CMD || 'pdflatex'
+//const latexCmd = process.env.LATEX_CMD || 'pdflatex'
+const latexCmd = 'pdflatex'
 
 const getTemplate = (content, title, author) => `
 \\documentclass[12pt,a4paper]{article}
@@ -49,7 +50,8 @@ app.post('/latex/compile', async (req, res) => {
   
   fs.writeFileSync(texFile, latexCode)
   
-  exec(`${latexCmd} -interaction=nonstopmode "${texFile}"`, 
+  // Utiliser pdflatex directement
+  exec(`pdflatex -interaction=nonstopmode "${texFile}"`, 
     { timeout: 30000, cwd: __dirname },
     (error) => {
       const pdfFile = texFile.replace('.tex', '.pdf')
@@ -57,16 +59,7 @@ app.post('/latex/compile', async (req, res) => {
       if (fs.existsSync(pdfFile)) {
         const pdfBuffer = fs.readFileSync(pdfFile)
         res.json({ success: true, pdf: pdfBuffer.toString('base64') })
-        
-        // Nettoyage
-        try {
-          fs.unlinkSync(texFile)
-          fs.unlinkSync(pdfFile)
-          ;['.aux', '.log'].forEach(ext => {
-            const f = texFile.replace('.tex', ext)
-            if (fs.existsSync(f)) fs.unlinkSync(f)
-          })
-        } catch(e) {}
+        // Nettoyage...
       } else {
         res.status(500).json({ error: 'PDF non généré' })
       }
