@@ -67,6 +67,60 @@ app.post('/latex/compile', async (req, res) => {
   )
 })
 
+// server-latex.js - Ajoute cette route après les autres
+
+app.post('/latex/compile-course', async (req, res) => {
+  const { courseId } = req.body
+  
+  console.log("📥 Compilation du cours:", courseId)
+  
+  // Chemins vers les cours
+  const coursePaths = {
+    'equations-diff': path.join(__dirname, 'latex-sources/templates/cours-chapitre4')
+  }
+  
+  const coursePath = coursePaths[courseId]
+  if (!coursePath) {
+    return res.status(404).json({ error: 'Cours non trouvé' })
+  }
+  
+  // Trouver le fichier principal (document.tex ou le fichier cours)
+  let mainFile = path.join(coursePath, 'document.tex')
+  if (!fs.existsSync(mainFile)) {
+    // Si pas de document.tex, on prend les fichiers individuellement
+    const coursFile = path.join(coursePath, 'cours-equations-diff.tex')
+    if (fs.existsSync(coursFile)) {
+      mainFile = coursFile
+    } else {
+      return res.status(404).json({ error: 'Fichier source non trouvé' })
+    }
+  }
+  
+  const texContent = fs.readFileSync(mainFile, 'utf8')
+  const texFile = path.join(coursePath, `temp_${Date.now()}.tex`)
+  fs.writeFileSync(texFile, texContent)
+  
+  exec(`pdflatex -interaction=nonstopmode "${texFile}"`, 
+    { timeout: 60000, cwd: coursePath },
+    (error) => {
+      const pdfFile = texFile.replace('.tex', '.pdf')
+      
+      if (fs.existsSync(pdfFile)) {
+        const pdfBuffer = fs.readFileSync(pdfFile)
+        res.json({ success: true, pdf: pdfBuffer.toString('base64') })
+        
+        // Nettoyage
+        try {
+          fs.unlinkSync(texFile)
+          fs.unlinkSync(pdfFile)
+        } catch(e) {}
+      } else {
+        res.status(500).json({ error: 'PDF non généré' })
+      }
+    }
+  )
+})
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
