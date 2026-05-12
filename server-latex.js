@@ -5,15 +5,14 @@ import fs from "fs"
 import path from "path"
 import { fileURLToPath } from 'url'
 
+// ✅ Correction pour __dirname en ES module
 const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__dirname)
+const __dirname = path.dirname(__filename)
 
 const app = express()
 app.use(cors())
 app.use(express.json({ limit: '50mb' }))
 
-// Sur Render, xelatex n'est pas installé par défaut
-// Il faut utiliser pdflatex ou installer xelatex via apt-get
 const latexCmd = process.env.LATEX_CMD || 'pdflatex'
 
 const getTemplate = (content, title, author) => `
@@ -46,12 +45,12 @@ app.post('/latex/compile', async (req, res) => {
   }
   
   const latexCode = getTemplate(content, title, author)
-  const texFile = `temp_${Date.now()}.tex`
+  const texFile = path.join(__dirname, `temp_${Date.now()}.tex`)
   
   fs.writeFileSync(texFile, latexCode)
   
-  exec(`${latexCmd} -interaction=nonstopmode ${texFile}`, 
-    { timeout: 30000 },
+  exec(`${latexCmd} -interaction=nonstopmode "${texFile}"`, 
+    { timeout: 30000, cwd: __dirname },
     (error) => {
       const pdfFile = texFile.replace('.tex', '.pdf')
       
@@ -81,5 +80,5 @@ app.get('/health', (req, res) => {
 
 const PORT = process.env.PORT || 3003
 app.listen(PORT, () => {
-  console.log(`🚀 Serveur LaTeX sur http://localhost:${PORT}`)
+  console.log(`🚀 Serveur LaTeX sur le port ${PORT}`)
 })
