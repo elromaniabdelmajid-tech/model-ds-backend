@@ -1,0 +1,107 @@
+% ══════════════════════════════════════════════════════
+%  contenu/page-de-garde-exponentielle.tex
+%  Page de garde - Fonction Exponentielle
+% ══════════════════════════════════════════════════════
+\thispagestyle{empty}
+\usetikzlibrary{intersections,decorations.text}
+
+\begin{tikzpicture}[overlay,remember picture,font=\sffamily\bfseries]
+
+  %% ─── Arc principal ────────────────────────────────
+  \draw[very thick,c4,name path=bigarc]
+    ([xshift=-2mm]current page.north) arc(150:285:11)
+    coordinate[pos=0.22](x0);
+
+  \begin{scope}
+    \clip ([xshift=-2mm]current page.north) arc(150:285:11)
+      -- (current page.north east);
+    \fill[c4!40,opacity=0.3] ([xshift=4.5cm]x0) circle(4.5);
+    \fill[c4!40,opacity=0.3] ([xshift=3.3cm]x0) circle(3.3);
+    \fill[c4!40,opacity=0.3] ([xshift=2.2cm]x0) circle(2.2);
+    \draw[very thick,c4!65] (x0) arc(-90:30:6.5);
+    \draw[very thick,c4]    (x0) arc(90:-30:8.75);
+    \draw[very thick,c4!65,name path=arc1] (x0) arc(90:-90:4.65);
+    \draw[very thick,c4!50] (x0) arc(90:-90:2.85);
+    \path[name intersections={of=bigarc and arc1,by=x1}];
+    \draw[very thick,c4,name path=arc2] (x1) arc(135:-20:4.75);
+    \draw[very thick,c4!55] (x1) arc(135:-20:8.75);
+    \path[name intersections={of=bigarc and arc2,by={aux,x2}}];
+    \draw[very thick,c4!50] (x2) arc(180:50:2.2);
+  \end{scope}
+
+  %% ─── Année sur l'arc ──────────────────────────────
+  \path[decoration={text along path,text color=c4,
+      raise=-2.8ex,text along path,
+      text={|\sffamily\bfseries|2025 --- 2026},
+      text align=center},decorate]
+    ([xshift=-2mm]current page.north) arc(150:245:11);
+
+  %% ─── Bloc décoratif central droit ────────────────
+  \begin{scope}
+    \path[clip,postaction={fill=c3!80}]
+      ([xshift=2.2cm,yshift=-7.8cm]current page.center)
+      rectangle ++(4.5,7.8);
+    \fill[c4!90]
+      ([xshift=0.5cm,yshift=-7.8cm]current page.center)
+      arc(180:60:2) |- ++(-3,6.2) --cycle;
+    \foreach \dx in {-1.5,0.5,2.5,4.5}{
+      \draw[very thick,c4!40]
+        ([xshift=\dx cm,yshift=-7.8cm]current page.center)
+        arc(180:0:2);}
+    %% Formule spécifique à l'exponentielle
+    \node[text=white,scale=1.3] at
+      ([xshift=4.8cm,yshift=-4.5cm]current page.center)
+      {$e^x=\displaystyle\sum_{n=0}^{\infty}\frac{x^n}{n!}$};
+  \end{scope}
+
+  %% ─── Fond principal gauche ────────────────────────
+  \fill[c1]
+    ([xshift=2.2cm,yshift=-7.8cm]current page.center)
+    rectangle ++(-14.5,7.8);
+
+  %% ─── Textes principaux ───────────────────────────
+  \node[text=white,anchor=west,
+        font=\bfseries\fontsize{38}{44}\sffamily]
+    at ([xshift=-9.5cm,yshift=-2.2cm]current page.center)
+    {Math\'ematiques};
+
+  \node[text=white!80,anchor=west,
+        font=\bfseries\fontsize{18}{22}\sffamily]
+    at ([xshift=-9.5cm,yshift=-3.9cm]current page.center)
+    {2\textsuperscript{\`eme} Bac Sciences Math\'ematiques};
+
+  \node[text=HeaderOrange,anchor=west,
+        font=\bfseries\fontsize{22}{28}\sffamily]
+    at ([xshift=-9.5cm,yshift=-5.5cm]current page.center)
+    {Chapitre 5 : Fonction Exponentielle};
+
+  \node[text=white!60,anchor=west,
+        font=\fontsize{13}{16}\sffamily]
+    at ([xshift=-9.5cm,yshift=-6.8cm]current page.center)
+    {Cours \textbullet\ Exercices r\'esolus \textbullet\
+     Probl\`emes};
+
+  %% ─── Graphique de la fonction exponentielle ──────
+  \begin{scope}[xshift=4cm,yshift=-3cm]
+    \draw[->] (-2,0) -- (2.5,0) node[right] {$x$};
+    \draw[->] (0,-0.5) -- (0,3.5) node[above] {$y$};
+    \draw[domain=-2:1.5, smooth, thick, MainRed]
+      plot (\x, {exp(\x)});
+    \node[right, MainRed] at (1.5,4.5) {$y=e^x$};
+  \end{scope}
+
+  %% ─── Cadre général ────────────────────────────────
+  \draw[c4!50,line width=4pt]
+    ([xshift=3mm,yshift=-3mm]current page.south west)
+    rectangle
+    ([xshift=-3mm,yshift=3mm]current page.north east);
+
+  %% ─── Auteur ──────────────────────────────────────
+  \node[text=gray!55,font=\itshape\large\sffamily,
+        anchor=south]
+    at ([yshift=2cm]current page.south)
+    {Pr\'epar\'e par : A.\ EL ROMANI
+     \quad\textemdash\quad 2025--2026};
+
+\end{tikzpicture}
+\vfill\newpage

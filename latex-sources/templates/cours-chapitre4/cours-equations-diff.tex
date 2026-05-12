@@ -1,0 +1,257 @@
+\let\cleardoublepage\clearpage
+\chapter{Les \'equations diff\'erentielles}
+
+\section{L'\'equation diff\'erentielle du premier ordre}
+
+\subsection{\'Equation $y'=ay$, $a\in\R^*$}
+
+\begin{Definition}
+Une \'equation de la forme $y'=ay$, o\`u l'inconnue $y$ est une fonction d\'erivable
+et $a$ est un r\'eel non nul, est appel\'ee \textbf{\'equation diff\'erentielle lin\'eaire
+du premier ordre \`a coefficients constants}.
+
+R\'esoudre cette \'equation, c'est trouver \textbf{toutes} les fonctions d\'erivables sur $\R$
+qui la v\'erifient.
+\end{Definition}
+
+\begin{Propriete}[]{Solution g\'en\'erale de $y'=ay$}
+Les solutions de l'\'equation diff\'erentielle $y'=ay$ sont les fonctions
+d\'efinies et d\'erivables sur $\R$ de la forme :
+\formula{y = \lambda e^{ax} \quad \text{avec } \lambda\in\R}
+$y=\lambda e^{ax}$ avec $\lambda\in\R$ est appel\'ee la \textbf{solution g\'en\'erale}
+de l'\'equation diff\'erentielle $y'=ay$.
+\end{Propriete}
+
+\begin{Demo}
+$y'=ay \;\Rightarrow\; \dfrac{y'}{y}=a \;\Rightarrow\; \ln|y|=ax+k$
+
+$\Rightarrow\; |y|=e^{ax+k}=e^k\cdot e^{ax}$
+
+$\Rightarrow\; y=\pm e^k e^{ax}=\lambda e^{ax}$ avec $\lambda\in\R^*$.
+
+On v\'erifie que $\lambda=0$ convient aussi ($y=0$ est solution). CQFD.\hfill$\square$
+\end{Demo}
+
+\Exemples
+\begin{enumerate}
+  \item La solution g\'en\'erale de $y'+3y=0$ est $y=\lambda e^{-3x}$ avec $\lambda\in\R$.
+  \item La solution g\'en\'erale de $y'-5y=0$ est $y=\lambda e^{5x}$ avec $\lambda\in\R$.
+\end{enumerate}
+
+\begin{Application}
+R\'esoudre les \'equations diff\'erentielles suivantes :
+\begin{multicols}{3}
+\begin{enumerate}
+  \item $y'+y=0$
+  \item $y'+\sqrt{2}\,y=0$
+  \item $2y'+3y=0$
+\end{enumerate}
+\end{multicols}
+\end{Application}
+
+\subsection{Solution particuli\`ere v\'erifiant $y(x_0)=y_0$}
+
+\begin{Propriete}[]{}
+Soit $a\in\R^*$. Pour tous r\'eels $x_0$ et $y_0$, l'\'equation $y'=ay$
+admet une \textbf{unique solution} qui prend la valeur $y_0$ en $x_0$.
+C'est :
+\formula{y = y_0\,e^{a(x-x_0)}}
+\end{Propriete}
+
+\DemoTex La solution g\'en\'erale est $y=\lambda e^{ax}$.
+La condition $y(x_0)=y_0$ donne $\lambda e^{ax_0}=y_0$, soit $\lambda=y_0 e^{-ax_0}$.
+Donc $y=y_0 e^{-ax_0}\cdot e^{ax}=y_0 e^{a(x-x_0)}$.\hfill$\square$
+
+\Exemples
+\begin{enumerate}
+  \item L'unique solution de $y'=5y$ qui prend la valeur $3$ en $x_0=2$ est
+        $y=3e^{5(x-2)}$.
+  \item L'unique solution de $y'+2y=0$ qui v\'erifie $y(\ln 3)=4$ est
+        $y=4e^{-2(x-\ln 3)}$.
+\end{enumerate}
+
+\begin{Application}
+\begin{enumerate}
+  \item D\'eterminer la solution de $y'+3y=0$ qui prend la valeur $-5$ en $0$.
+  \item D\'eterminer la solution de $y'=5y$ qui prend la valeur $5$ en $\ln 2$.
+\end{enumerate}
+\end{Application}
+
+\subsection{\'Equation $y'=ay+b$, $(a,b)\in(\R^*)^2$}
+
+\begin{Propriete}[]{}
+La solution g\'en\'erale de l'\'equation diff\'erentielle $y'=ay+b$ est :
+\formula{y=\lambda e^{ax}-\dfrac{b}{a} \quad \text{avec } \lambda\in\R}
+\end{Propriete}
+
+\DemoTex On a $y'=ay+b \;\Rightarrow\; y'=a\!\left(y+\dfrac{b}{a}\right)$.
+
+On pose $z=y+\dfrac{b}{a}$, donc $z'=y'=az$.
+La solution g\'en\'erale de $z'=az$ est $z=\lambda e^{ax}$.
+En revenant \`a $y$ : $y=z-\dfrac{b}{a}=\lambda e^{ax}-\dfrac{b}{a}$.\hfill$\square$
+
+\Exemples
+\begin{enumerate}
+  \item La solution g\'en\'erale de $y'=3y+7$ est $y=\lambda e^{3x}-\dfrac{7}{3}$, $\lambda\in\R$.
+  \item La solution g\'en\'erale de $y'+2y+5=0$ est $y=\lambda e^{-2x}-\dfrac{5}{2}$, $\lambda\in\R$.
+\end{enumerate}
+
+\begin{Remarque}
+La solution particuli\`ere de $y'=ay+b$ qui v\'erifie $y(x_0)=y_0$ s'obtient en
+d\'eterminant $\lambda$ depuis $y_0=\lambda e^{ax_0}-\dfrac{b}{a}$.
+\end{Remarque}
+
+\begin{Application}
+\begin{enumerate}
+  \item D\'eterminer la solution g\'en\'erale de $y'+7y+11=0$.
+  \item D\'eterminer la solution de $y'=\pi y+\sqrt{2}$ qui v\'erifie $y(0)=-1$.
+\end{enumerate}
+\end{Application}
+
+\section{L'\'equation diff\'erentielle du second ordre}
+
+\subsection{\'Equation $y''+ay'+by=0$, $(a,b)\in\R^2$}
+
+\begin{Definition}
+L'\'equation $y''+ay'+by=0$, o\`u l'inconnue $y$ est une fonction deux fois d\'erivable
+sur $\R$, s'appelle l'\textbf{\'equation diff\'erentielle lin\'eaire du second ordre homog\`ene
+\`a coefficients constants}.
+\end{Definition}
+
+\textbf{Cas particuliers :}
+\begin{itemize}
+  \item Si $a=b=0$ : l'\'equation devient $y''=0$, de solution g\'en\'erale
+        $y=\alpha x+\beta$ avec $(\alpha,\beta)\in\R^2$.
+  \item Si $b=0$ : l'\'equation devient $y''+ay'=0$, soit $(y'+ay)'=0$.
+        Donc $y'+ay=C$ ($C\in\R$), i.e. $y'=-ay+C$, d'o\`u
+        $y=\lambda e^{-ax}+\dfrac{C}{a}$ avec $\lambda\in\R$.
+  \item Si $a=0$ et $b>0$ : l'\'equation devient $y''+\omega^2 y=0$ ($\omega=\sqrt{b}$),
+        de solution g\'en\'erale $y=\alpha\cos(\omega x)+\beta\sin(\omega x)$,
+        $(\alpha,\beta)\in\R^2$.
+\end{itemize}
+
+\subsection{R\'esolution via l'\'equation caract\'eristique}
+
+\begin{Theoreme}[]{Th\'eor\`eme fondamental}
+Soit $(E)\;:\;ay''+by'+cy=0$ avec $(a,b,c)\in\R^3$, $a\neq 0$.
+
+On appelle \textbf{\'equation caract\'eristique} de $(E)$ l'\'equation :
+\formula{ar^2+br+c=0}
+
+Soit $\Delta=b^2-4ac$ le discriminant de cette \'equation.
+
+\begin{itemize}
+  \item \textbf{Si $\Delta>0$} : deux racines r\'eelles distinctes $r_1$ et $r_2$.
+        La solution g\'en\'erale de $(E)$ est :
+        \[y(x)=\lambda e^{r_1 x}+\mu e^{r_2 x},\quad(\lambda,\mu)\in\R^2\]
+  \item \textbf{Si $\Delta=0$} : une racine double $r_0=\dfrac{-b}{2a}$.
+        La solution g\'en\'erale de $(E)$ est :
+        \[y(x)=(\lambda+\mu x)e^{r_0 x},\quad(\lambda,\mu)\in\R^2\]
+  \item \textbf{Si $\Delta<0$} : deux racines complexes conjugu\'ees
+        $r_{1,2}=r_0\pm i\omega$ avec $r_0=-\dfrac{b}{2a}$, $\omega=\dfrac{\sqrt{-\Delta}}{2a}$.
+        La solution g\'en\'erale de $(E)$ est :
+        \[y(x)=e^{r_0 x}\bigl[\lambda\cos(\omega x)+\mu\sin(\omega x)\bigr],
+          \quad(\lambda,\mu)\in\R^2\]
+\end{itemize}
+\end{Theoreme}
+
+\subsection{Exemples r\'esolus}
+
+\Exemples
+
+\textbf{Exemple 1.} R\'esoudre $2y''-5y'+2y=0$.
+
+\'Equation caract\'eristique : $2r^2-5r+2=0$, $\Delta=25-16=9$.
+
+$r_1=\dfrac{5+3}{4}=2$ et $r_2=\dfrac{5-3}{4}=\dfrac{1}{2}$.
+
+Solution g\'en\'erale : $y(x)=\lambda e^{2x}+\mu e^{x/2}$, $(\lambda,\mu)\in\R^2$.\hfill$\square$
+
+\textbf{Exemple 2.} Discuter selon $m\in\R$ l'ED $(E_m)\;:\;y''-2y'+(1-m)y=0$.
+
+\'Equation caract\'eristique : $r^2-2r+(1-m)=0$, $\Delta=4m$.
+
+\begin{itemize}
+  \item $m=0$ : $\Delta=0$, racine double $r_0=1$.
+        $y(x)=(\lambda+\mu x)e^x$, $(\lambda,\mu)\in\R^2$.
+  \item $m>0$ : $\Delta>0$, $r_{1,2}=1\pm\sqrt{m}$.
+        $y(x)=\lambda e^{(1+\sqrt{m})x}+\mu e^{(1-\sqrt{m})x}$, $(\lambda,\mu)\in\R^2$.
+  \item $m<0$ : $\Delta<0$, $r_{1,2}=1\pm i\sqrt{-m}$.
+        $y(x)=e^x\!\left[\lambda\cos\!\left(\sqrt{-m}\,x\right)+\mu\sin\!\left(\sqrt{-m}\,x\right)\right]$.
+\end{itemize}
+
+\begin{Application}
+R\'esoudre les \'equations diff\'erentielles suivantes :
+\begin{multicols}{2}
+\begin{enumerate}
+  \item $y''+y'-3y=0$
+  \item $y''-2y=0$
+  \item $y''-4y'+3y=0$
+  \item $y''+y'+y=0$
+  \item $y''+4y'-5y=0$
+  \item $y''-2my'+my=0$ (discuter selon $m$)
+\end{enumerate}
+\end{multicols}
+\end{Application}
+
+\begin{Remarque}
+Soient $x_0,y_0,z_0$ des r\'eels. Il existe une \textbf{unique} solution de $(E)\;:\;y''+ay'+by=0$
+v\'erifiant les conditions initiales :
+\[
+  \begin{cases}y(x_0)=y_0\\y'(x_0)=z_0\end{cases}
+\]
+Cette unicit\'e permet de d\'eterminer compl\`etement $\lambda$ et $\mu$.
+\end{Remarque}
+
+\section{Applications physiques}
+
+\subsection{D\'esint\'egration radioactive}
+
+Le taux de d\'esint\'egration d'un \'el\'ement radioactif est proportionnel \`a la quantit\'e
+pr\'esente : $\dfrac{dQ}{dt}=-kQ$ ($k>0$).
+
+La solution est $Q(t)=Q_0 e^{-kt}$. La demi-vie $T_{1/2}$ v\'erifie $Q(T_{1/2})=\dfrac{Q_0}{2}$,
+d'o\`u $k=\dfrac{\ln 2}{T_{1/2}}$.
+
+\Exemple La demi-vie du Polonium-218 est $T_{1/2}=3$ min. Donc $k=\dfrac{\ln 2}{3}$.
+
+a) Apr\`es $t=5$ min : $Q(5)=Q_0 e^{-\frac{5}{3}\ln 2}=Q_0\cdot 2^{-5/3}\approx 0{,}315\,Q_0$.
+Il reste environ $31{,}5\%$ de la quantit\'e initiale.
+
+b) Pour $Q(t)=0{,}01\,Q_0$ : $0{,}01=e^{-\frac{t}{3}\ln 2}$, donc
+$t=-\dfrac{3\ln(0{,}01)}{\ln 2}\approx 19{,}93$ min. \hfill$\square$
+
+\subsection{Probl\`eme de m\'elange}
+
+Un r\'eservoir de $500$ litres d'eau pure re\c{c}oit $4$ L/min de solution \`a $100$ g/L.
+L'eau sal\'ee s'\'echappe au m\^eme d\'ebit.
+
+La quantit\'e de sel $q(t)$ (en kg) v\'erifie :
+\[
+  \frac{dq}{dt}=\underbrace{0{,}4}_{\text{input}}-\underbrace{\frac{q}{125}}_{\text{output}}
+  \quad\text{avec}\quad q(0)=0
+\]
+
+Solution g\'en\'erale de $q'+\dfrac{q}{125}=0{,}4$ : $q(t)=50+Ce^{-t/125}$.
+
+Condition initiale : $q(0)=0\Rightarrow C=-50$, donc $q(t)=50-50e^{-t/125}$.
+
+Apr\`es $10$ min : $q(10)=50-50e^{-10/125}\approx 3{,}84$ kg.
+Apr\`es $1$ heure : $q(60)\approx 19{,}06$ kg.
+
+\subsection{Charge d'un condensateur}
+
+Un condensateur $C=4\times 10^{-4}$ F en s\'erie avec $R=88\,\Omega$ et $E=6$ V.
+La tension $u_c$ v\'erifie :
+\[
+  E=RC\,\frac{du_c}{dt}+u_c
+  \;\Longrightarrow\;
+  u_c'=-\frac{1}{RC}\,u_c+\frac{E}{RC}
+\]
+
+C'est $y'=ay+b$ avec $a=-\dfrac{1}{RC}$ et $b=\dfrac{E}{RC}$.
+
+Solution avec $u_c(0)=0$ : $u_c(t)=E\!\left(1-e^{-t/(RC)}\right)$.
+
+\`A $t=100$ ms $= 0{,}1$ s :
+$u_c(0{,}1)=6\!\left(1-e^{-0{,}1/(88\times 4\times 10^{-4})}\right)=6\!\left(1-e^{-125/44}\right)\approx 5{,}65$ V.
